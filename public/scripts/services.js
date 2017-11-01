@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('drwn')
-.constant("baseURL", "http://localhost:3000/")
+.constant("baseURL", "")
 
 .factory('imgFac', ['baseURL', '$resource', function(baseURL, $resource){
     var content = {};
