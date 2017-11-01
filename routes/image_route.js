@@ -46,7 +46,7 @@ router.route('/')
                      
                      IMG.create({keyword: keyword_Searched, image_name: name}, function(err, success){
                             if(err)    next(err);
-                            image.quality(40).greyscale().write(__dirname+"/images/"+name);//compressing and adding black&white before saving
+                            image.quality(40).greyscale().write("./public/images/"+name);//compressing and adding black&white before saving
                             console.log("saved");
                         });
                  }).catch(function(err) {
@@ -70,25 +70,26 @@ router.route('/')
 
 router.route('/image/:key')
 .get(function(req, res, next){                  // Give all keywords in ascending order
-    console.log(req.params.key);
+    //console.log(req.params.key);
     
     IMG.find({keyword: sanitize(req.params.key)})
     .exec(function(err, im){
         if(err)
             next(err);
-        console.log(im[0].image_name);
-        console.log(__dirname+"/images/"+im[0].image_name);
-        fs.readFile(__dirname+"/images/"+im[0].image_name, function (err, content) {
-            if (err) {
-                res.writeHead(400, {'Content-type':'text/html'})
-                console.log(err);
-                res.end("No such image");    
-            } else {
+        
+        var im_obj = [];
+        //console.log(im.length);
+        
+        
+            for(var p=0; p < im.length; p++){
+                var content = fs.readFileSync("./public/images/"+im[p].image_name);
+
                 //specify the content type in the response will be an image
-                res.writeHead(200,{'Content-type':'image/jpg'});
-                res.end(content);
+                im_obj.push({con: content.toString("base64")});
+                
             }
-        });
+        
+        res.json(im_obj);
     });
 });
 
