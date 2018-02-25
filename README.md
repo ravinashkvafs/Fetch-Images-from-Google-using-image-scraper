@@ -1,7 +1,7 @@
-Assignment - Darwin
-================
+Fetch Images from Google - image-scraper
+========================================
 Clone the repository to your local using:
-https://github.com/ravinashkvafs/assignment-drwn.git
+https://github.com/ravinashkvafs/Fetch-Images-from-Google-using-image-scraper.git
 
 Install necessary dependencies using: npm install
 
